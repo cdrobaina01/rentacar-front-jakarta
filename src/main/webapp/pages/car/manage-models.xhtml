@@ -4,8 +4,99 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:outputLabel value="Hello, world"/>
-</f:view>
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="../layouts/layout.xhtml">
+    <ui:define name="title">Gestionar Modelos de Autos</ui:define>
+    <ui:define name="content">
+        <div class="card crud-demo">
+            <h:form id="form">
+                <p:growl id="messages" showDetail="true"/>
+
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:commandButton value="New" icon="pi pi-plus" actionListener="#{modelView.add}"
+                                         update=":dialogs:manage-model-content" oncomplete="PF('manageModelDialog').show()"
+                                         styleClass="ui-button-success" style="margin-right: .5rem">
+                            <p:resetInput target=":dialogs:manage-model-content" />
+                        </p:commandButton>
+                    </p:toolbarGroup>
+                </p:toolbar>
+
+                <p:dataTable id="models" widgetVar="models" var="model" value="#{modelView.models}"
+                             reflow="true" selection="#{modelView.selected}"
+                             rowKey="#{model.id}" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+
+                    <f:facet name="header">
+                        <div>
+                            <span style="font-weight: bold">Modelos</span>
+                            <span class="ui-picklist-filter-container ui-input-icon-left">
+                        <i class="pi pi-search"/>
+                        <p:inputText id="globalFilter" onkeyup="PF('models').filter()" placeholder="Search"/>
+                     </span>
+                        </div>
+                    </f:facet>
+
+                    <p:column selectionMode="single" exportable="false"/>
+
+                    <p:column headerText="Nombre" sortBy="#{model.name}" filterBy="#{model.name}">
+                        <h:outputText value="#{model.name}"/>
+                    </p:column>
+                    <p:column headerText="Marca" sortBy="#{model.brand.name}" filterBy="#{model.brand.name}">
+                        <h:outputText value="#{model.brand.name}"/>
+                    </p:column>
+                    <p:column exportable="false">
+                        <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-model-content"
+                                         oncomplete="PF('manageModelDialog').show()"
+                                         styleClass="edit-button rounded-button ui-button-success" process="@this">
+                            <f:setPropertyActionListener value="#{model}" target="#{modelView.selected}"/>
+                            <p:resetInput target=":dialogs:manage-model-content"/>
+                        </p:commandButton>
+                        <p:commandButton icon="pi pi-trash" styleClass="ui-button-warning rounded-button"
+                                         process="@this" oncomplete="PF('deleteModelDialog').show()">
+                            <f:setPropertyActionListener value="#{model}" target="#{modelView.selected}"/>
+                        </p:commandButton>
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+
+            <h:form id="dialogs">
+                <p:dialog header="Conductores" showEffect="fade" modal="true" widgetVar="manageModelDialog"
+                          responsive="true">
+                    <p:outputPanel id="manage-model-content" styleClass="ui-fluid">
+                        <p:outputPanel rendered="#{not empty modelView.selected}">
+                            <div class="field">
+                                <p:outputLabel for="@next">Modelo</p:outputLabel>
+                                <p:inputText id="dni" value="#{modelView.selected.name}" required="true"/>
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="@next">Marca</p:outputLabel>
+                                <p:selectOneMenu id="brand" value="#{modelView.selectedBrand}" required="true">
+                                    <f:selectItems value="#{modelView.brands}" var="brand" itemLabel="#{brand.name}" itemValue="#{brand.id}"/>
+                                </p:selectOneMenu>
+                            </div>
+                        </p:outputPanel>
+                    </p:outputPanel>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Save" icon="pi pi-check" actionListener="#{modelView.save}"
+                                         update="manage-model-content" process="manage-model-content @this"/>
+                        <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageModelDialog').hide()"
+                                         class="ui-button-secondary" type="button" />
+                    </f:facet>
+                </p:dialog>
+
+                <p:confirmDialog widgetVar="deleteModelDialog" showEffect="fade" width="300"
+                                 message="Delete the model?" header="Confirm" severity="warn">
+                    <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{modelView.delete}"
+                                     process="@this"
+                                     oncomplete="PF('deleteModelDialog').hide()" />
+                    <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                                     onclick="PF('deleteModelDialog').hide()" />
+                </p:confirmDialog>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
 </html>
