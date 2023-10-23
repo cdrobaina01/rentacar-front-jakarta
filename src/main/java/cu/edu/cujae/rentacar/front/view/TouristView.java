@@ -33,6 +33,10 @@ public class TouristView implements Serializable {
 
     @PostConstruct
     public void init() { this.tourists = touristService.getAll(); }
+    public void setSelectedRole(Integer selectedCountry) {
+        this.selectedCountry = selectedCountry;
+    }
+    public List<TouristDTO> getTourist(){return tourists;}
 
     public void save() {
         TouristDTO dto = this.selected;
