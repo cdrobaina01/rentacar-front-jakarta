@@ -3,7 +3,6 @@ package cu.edu.cujae.rentacar.front.service;
 import cu.edu.cujae.rentacar.front.dto.CountryDTO;
 import cu.edu.cujae.rentacar.front.mock.CountryMock;
 import cu.edu.cujae.rentacar.front.mock.RoleMock;
-import cu.edu.cujae.rentacar.front.mock.UserMock;
 import cu.edu.cujae.rentacar.front.utils.ApiResponse;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;

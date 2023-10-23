@@ -79,7 +79,7 @@
                     <p:outputPanel id="manage-tourist-content" styleClass="ui-fluid">
                         <p:outputPanel rendered="#{not empty touristView.selected}">
                             <div class="field">
-                                <p:outputLabel for="@next">CI</p:outputLabel>
+                                <p:outputLabel for="@next">Pasaporte</p:outputLabel>
                                 <p:inputText id="passport" value="#{touristView.selected.passport}" required="true"/>
                             </div>
                             <div class="field">
@@ -87,8 +87,16 @@
                                 <p:inputText id="name" value="#{touristView.selected.name}" required="true"/>
                             </div>
                             <div class="field">
-                                <p:outputLabel for="@next">Dirección</p:outputLabel>
+                                <p:outputLabel for="@next">Edad</p:outputLabel>
                                 <p:inputText id="age" value="#{touristView.selected.age}" required="true"/>
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="@next">Sexo</p:outputLabel>
+                                <p:inputText id="sex" value="#{touristView.selected.sex}" required="true"/>
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="@next">Contacto</p:outputLabel>
+                                <p:inputText id="contact" value="#{touristView.selected.contact}" required="true"/>
                             </div>
                             <div class="field">
                                 <p:outputLabel for="@next">País</p:outputLabel>
