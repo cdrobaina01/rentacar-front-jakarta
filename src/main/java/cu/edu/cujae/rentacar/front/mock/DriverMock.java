@@ -6,6 +6,7 @@ import cu.edu.cujae.rentacar.front.dto.DriverDTO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class DriverMock {
     private static DriverMock instance;
@@ -20,12 +21,14 @@ public class DriverMock {
 
     private DriverMock() {
         drivers = new ArrayList<>();
+        Random rand = new Random();
         for (int i = 1; i < 6; i++) {
             DriverDTO dto = DriverDTO.builder()
                     .id(i)
                     .name(Faker.instance().name().fullName())
                     .dni(Faker.instance().idNumber().ssnValid())
                     .address(Faker.instance().address().fullAddress())
+                    .category(CategoryMock.getInstance().getById(rand.nextInt(5) + 1))
                     .build();
             drivers.add(dto);
         }
