@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../layouts/layout.xhtml">
+   <ui:define name="title">Gestionar Usuarios</ui:define>
+   <ui:define name="content">
+      <div class="card crud-demo">
+         <h:form id="form">
+            <p:growl id="messages" showDetail="true" />
+
+            <p:toolbar>
+               <p:toolbarGroup>
+                  <p:commandButton value="New" icon="pi pi-plus" actionListener="#{userView.add}"
+                                   update=":dialogs:manage-user-content" oncomplete="PF('manageUserDialog').show()"
+                                   styleClass="ui-button-success" style="margin-right: .5rem">
+                     <p:resetInput target=":dialogs:manage-user-content" />
+                  </p:commandButton>
+               </p:toolbarGroup>
+            </p:toolbar>
+
+            <p:dataTable id="users" widgetVar="Users" var="user" value="#{userView.users}"
+                         reflow="true" styleClass="users-table" selection="#{userView.selected}"
+                         rowKey="#{user.id}" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+               <f:facet name="header">
+                  <div class="users-table-header">
+                     <span style="font-weight: bold">USERS</span>
+                     <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"/>
+                        <p:inputText id="globalFilter" onkeyup="PF('users').filter()" placeholder="Search" />
+                    </span>
+                  </div>
+               </f:facet>
+
+               <p:column selectionMode="single" exportable="false"/>
+
+               <p:column headerText="Username" sortBy="#{user.username}" filterBy="#{user.username}">
+                  <h:outputText value="#{user.username}" />
+               </p:column>
+               <p:column headerText="Role" sortBy="#{user.role.name}" filterBy="#{user.role.name}">
+                  <h:outputText value="#{user.role.name}" />
+               </p:column>
+               <p:column exportable="false">
+                  <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-user-content"
+                                   oncomplete="PF('manageUserDialog').show()"
+                                   styleClass="edit-button rounded-button ui-button-success" process="@this">
+                     <f:setPropertyActionListener value="#{user}" target="#{userView.selected}" />
+                     <p:resetInput target=":dialogs:manage-user-content" />
+                  </p:commandButton>
+                  <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
+                                   process="@this"
+                                   oncomplete="PF('deleteUserDialog').show()">
+                     <f:setPropertyActionListener value="#{user}" target="#{userView.selected}" />
+                  </p:commandButton>
+               </p:column>
+            </p:dataTable>
+         </h:form>
+
+         <h:form id="dialogs">
+            <p:dialog header="User Details" showEffect="fade" modal="true" widgetVar="manageUserDialog"
+                      responsive="true">
+               <p:outputPanel id="manage-user-content" class="ui-fluid">
+                  <p:outputPanel rendered="#{not empty userView.selected}">
+                     <div class="field">
+                        <p:outputLabel for="@next">Username</p:outputLabel>
+                        <p:inputText id="username" value="#{userView.selected.username}" required="true" />
+                        <p:outputLabel for="@next">Role</p:outputLabel>
+                        <p:selectOneMenu id="role" value="#{userView.selectedRole}" required="true">
+                           <f:selectItems value="#{userView.roles}" var="role" itemLabel="#{role.name}" itemValue="#{role.id}"/>
+                        </p:selectOneMenu>
+                     </div>
+
+                  </p:outputPanel>
+               </p:outputPanel>
+
+               <f:facet name="footer">
+                  <p:commandButton value="Save" icon="pi pi-check" actionListener="#{userView.save}"
+                                   update="manage-user-content" process="manage-user-content @this" />
+                  <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageUserDialog').hide()"
+                                   class="ui-button-secondary" type="button" />
+               </f:facet>
+            </p:dialog>
+
+            <p:confirmDialog widgetVar="deleteUserDialog" showEffect="fade" width="300"
+                             message="Delete the user?" header="Confirm" severity="warn">
+               <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{userView.deleteUser}"
+                                process="@this"
+                                oncomplete="PF('deleteUserDialog').hide()" />
+               <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                                onclick="PF('deleteUserDialog').hide()" />
+            </p:confirmDialog>
+
+         </h:form>
+      </div>
+   </ui:define>
+</ui:composition>
+</html>
