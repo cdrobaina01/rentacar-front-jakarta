@@ -1,10 +1,7 @@
 package cu.edu.cujae.rentacar.front.mock;
 
-import cu.edu.cujae.rentacar.front.dto.RoleDTO;
-import cu.edu.cujae.rentacar.front.dto.UserDTO;
-import cu.edu.cujae.rentacar.front.utils.ApiResponse;
+import cu.edu.cujae.rentacar.front.security.dto.UserDTO;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 

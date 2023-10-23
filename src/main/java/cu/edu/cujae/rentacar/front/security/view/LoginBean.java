@@ -1,4 +1,4 @@
-package cu.edu.cujae.rentacar.front.view;
+package cu.edu.cujae.rentacar.front.security.view;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.context.FacesContext;

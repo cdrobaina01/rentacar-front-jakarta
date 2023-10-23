@@ -1,6 +1,6 @@
 package cu.edu.cujae.rentacar.front.mock;
 
-import cu.edu.cujae.rentacar.front.dto.RoleDTO;
+import cu.edu.cujae.rentacar.front.security.dto.RoleDTO;
 
 import java.util.ArrayList;
 import java.util.List;

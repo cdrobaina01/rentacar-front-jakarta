@@ -1,6 +1,6 @@
-package cu.edu.cujae.rentacar.front.service;
+package cu.edu.cujae.rentacar.front.security.service;
 
-import cu.edu.cujae.rentacar.front.dto.UserDTO;
+import cu.edu.cujae.rentacar.front.security.dto.UserDTO;
 import cu.edu.cujae.rentacar.front.utils.ApiResponse;
 
 import java.util.List;
