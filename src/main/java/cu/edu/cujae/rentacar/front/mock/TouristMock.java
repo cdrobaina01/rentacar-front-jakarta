@@ -20,8 +20,8 @@ public class TouristMock {
 
     private TouristMock() {
         tourists = new ArrayList<>();
-        tourists.add(new TouristDTO(1, "T123", "juan", 4, "masculo", "asdasd", new CountryDTO(999, "SIRIA")));
-        tourists.add(new TouristDTO(2, "T234", "juana", 5, "mascula", "dsadsa", new CountryDTO(998, "NONSIRIA")));
+        tourists.add(new TouristDTO(1, "T123", "juan", 4, "masculo", "asdasd", CountryMock.getInstance().getById(1)));
+        tourists.add(new TouristDTO(2, "T234", "juana", 5, "mascula", "dsadsa", CountryMock.getInstance().getById(2)));
 
     }
 
