@@ -1,7 +1,7 @@
-package cu.edu.cujae.rentacar.front.view;
+package cu.edu.cujae.rentacar.front.security.view;
 
-import cu.edu.cujae.rentacar.front.dto.RoleDTO;
-import cu.edu.cujae.rentacar.front.service.RoleService;
+import cu.edu.cujae.rentacar.front.security.dto.RoleDTO;
+import cu.edu.cujae.rentacar.front.security.service.RoleService;
 import cu.edu.cujae.rentacar.front.utils.ApiResponse;
 import cu.edu.cujae.rentacar.front.utils.JsfUtils;
 import jakarta.annotation.PostConstruct;

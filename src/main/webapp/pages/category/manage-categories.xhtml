@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="../layouts/layout.xhtml">
+    <ui:define name="title">Gestionar Categorías de Licencia</ui:define>
+    <ui:define name="content">
+        <div class="card crud-demo">
+            <h:form id="form">
+                <p:growl id="messages" showDetail="true"/>
+
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:commandButton value="New" icon="pi pi-plus" actionListener="#{categoryView.add}"
+                                         update=":dialogs:manage-category-content" oncomplete="PF('manageCategoryDialog').show()"
+                                         styleClass="ui-button-success" style="margin-right: .5rem">
+                            <p:resetInput target=":dialogs:manage-category-content" />
+                        </p:commandButton>
+                    </p:toolbarGroup>
+                </p:toolbar>
+
+                <p:dataTable id="categories" widgetVar="categories" var="category" value="#{categoryView.categories}"
+                             reflow="true" selection="#{categoryView.selected}"
+                             rowKey="#{category.id}" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+
+                    <f:facet name="header">
+                        <div>
+                            <span style="font-weight: bold">CATEGORÍAS</span>
+                            <span class="ui-picklist-filter-container ui-input-icon-left">
+                        <i class="pi pi-search"/>
+                        <p:inputText id="globalFilter" onkeyup="PF('categories').filter()" placeholder="Search"/>
+                     </span>
+                        </div>
+                    </f:facet>
+
+                    <p:column selectionMode="single" exportable="false"/>
+
+                    <p:column headerText="Name" sortBy="#{category.name}" filterBy="#{category.name}">
+                        <h:outputText value="#{category.name}"/>
+                    </p:column>
+                    <p:column exportable="false">
+                        <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-category-content"
+                                         oncomplete="PF('manageCategoryDialog').show()"
+                                         styleClass="edit-button rounded-button ui-button-success" process="@this">
+                            <f:setPropertyActionListener value="#{category}" target="#{categoryView.selected}"/>
+                            <p:resetInput target=":dialogs:manage-category-content"/>
+                        </p:commandButton>
+                        <p:commandButton icon="pi pi-trash" styleClass="ui-button-warning rounded-button"
+                                         process="@this" oncomplete="PF('deleteCategoryDialog').show()">
+                            <f:setPropertyActionListener value="#{category}" target="#{categoryView.selected}"/>
+                        </p:commandButton>
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+
+            <h:form id="dialogs">
+                <p:dialog header="Categoría" showEffect="fade" modal="true" widgetVar="manageCategoryDialog"
+                          responsive="true">
+                    <p:outputPanel id="manage-category-content" styleClass="ui-fluid">
+                        <p:outputPanel rendered="#{not empty categoryView.selected}">
+                            <div class="field">
+                                <p:outputLabel for="@next">Nombre</p:outputLabel>
+                                <p:inputText id="name" value="#{categoryView.selected.name}" required="true"/>
+                            </div>
+                        </p:outputPanel>
+                    </p:outputPanel>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Save" icon="pi pi-check" actionListener="#{categoryView.save}"
+                                         update="manage-category-content" process="manage-category-content @this"/>
+                        <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageCategoryDialog').hide()"
+                                         class="ui-button-secondary" type="button" />
+                    </f:facet>
+                </p:dialog>
+
+                <p:confirmDialog widgetVar="deleteCategoryDialog" showEffect="fade" width="300"
+                                 message="Delete the category?" header="Confirm" severity="warn">
+                    <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{categoryView.delete}"
+                                     process="@this"
+                                     oncomplete="PF('deleteCategoryDialog').hide()" />
+                    <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                                     onclick="PF('deleteCategoryDialog').hide()" />
+                </p:confirmDialog>
+
+            </h:form>
+
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

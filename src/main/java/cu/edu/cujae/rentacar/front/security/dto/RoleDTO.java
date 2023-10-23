@@ -1,4 +1,4 @@
-package cu.edu.cujae.rentacar.front.dto;
+package cu.edu.cujae.rentacar.front.security.dto;
 
 import java.io.Serializable;
 

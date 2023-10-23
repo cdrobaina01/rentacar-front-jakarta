@@ -1,11 +1,9 @@
 package cu.edu.cujae.rentacar.front.mock;
 
-import com.github.javafaker.Faker;
-import cu.edu.cujae.rentacar.front.dto.RoleDTO;
+import cu.edu.cujae.rentacar.front.security.dto.RoleDTO;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class RoleMock {
     private static RoleMock instance;
