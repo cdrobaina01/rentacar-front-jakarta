@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="../layouts/layout.xhtml">
+    <ui:define name="title">Gestionar Turistas</ui:define>
+    <ui:define name="content">
+        <div class="card crud-demo">
+            <h:form id="form">
+                <p:growl id="messages" showDetail="true"/>
+
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:commandButton value="New" icon="pi pi-plus" actionListener="#{touristView.add}"
+                                         update=":dialogs:manage-tourist-content" oncomplete="PF('manageTouristDialog').show()"
+                                         styleClass="ui-button-success" style="margin-right: .5rem">
+                            <p:resetInput target=":dialogs:manage-tourist-content" />
+                        </p:commandButton>
+                    </p:toolbarGroup>
+                </p:toolbar>
+
+                <p:dataTable id="tourists" widgetVar="tourists" var="tourist" value="#{touristView.tourists}"
+                             reflow="true" selection="#{touristView.selected}"
+                             rowKey="#{tourist.id}" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+
+                    <f:facet name="header">
+                        <div>
+                            <span style="font-weight: bold">Conductores</span>
+                            <span class="ui-picklist-filter-container ui-input-icon-left">
+                        <i class="pi pi-search"/>
+                        <p:inputText id="globalFilter" onkeyup="PF('tourists').filter()" placeholder="Search"/>
+                     </span>
+                        </div>
+                    </f:facet>
+
+                    <p:column selectionMode="single" exportable="false"/>
+
+                    <p:column headerText="Passport" sortBy="#{tourist.passport}" filterBy="#{tourist.passport}">
+                        <h:outputText value="#{tourist.passport}"/>
+                    </p:column>
+                    <p:column headerText="Name" sortBy="#{tourist.name}" filterBy="#{tourist.name}">
+                        <h:outputText value="#{tourist.name}"/>
+                    </p:column>
+                    <p:column headerText="Sex" sortBy="#{tourist.sex}" filterBy="#{tourist.sex}">
+                        <h:outputText value="#{tourist.sex}"/>
+                    </p:column>
+                    <p:column headerText="Age" sortBy="#{tourist.age}" filterBy="#{tourist.age}">
+                        <h:outputText value="#{tourist.age}"/>
+                    </p:column>
+                    <p:column headerText="Contact" sortBy="#{tourist.contact}" filterBy="#{tourist.contact}">
+                        <h:outputText value="#{tourist.contact}"/>
+                    </p:column>
+                    <p:column headerText="Country" sortBy="#{tourist.country.name}" filterBy="#{tourist.country.name}">
+                        <h:outputText value="#{tourist.country.name}"/>
+                    </p:column>
+                    <p:column exportable="false">
+                        <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-tourist-content"
+                                         oncomplete="PF('manageTouristDialog').show()"
+                                         styleClass="edit-button rounded-button ui-button-success" process="@this">
+                            <f:setPropertyActionListener value="#{tourist}" target="#{touristView.selected}"/>
+                            <p:resetInput target=":dialogs:manage-tourist-content"/>
+                        </p:commandButton>
+                        <p:commandButton icon="pi pi-trash" styleClass="ui-button-warning rounded-button"
+                                         process="@this" oncomplete="PF('deleteTouristDialog').show()">
+                            <f:setPropertyActionListener value="#{tourist}" target="#{touristView.selected}"/>
+                        </p:commandButton>
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+
+            <h:form id="dialogs">
+                <p:dialog header="Turistas" showEffect="fade" modal="true" widgetVar="manageTouristDialog"
+                          responsive="true">
+                    <p:outputPanel id="manage-tourist-content" styleClass="ui-fluid">
+                        <p:outputPanel rendered="#{not empty touristView.selected}">
+                            <div class="field">
+                                <p:outputLabel for="@next">CI</p:outputLabel>
+                                <p:inputText id="passport" value="#{touristView.selected.passport}" required="true"/>
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="@next">Nombre</p:outputLabel>
+                                <p:inputText id="name" value="#{touristView.selected.name}" required="true"/>
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="@next">Dirección</p:outputLabel>
+                                <p:inputText id="age" value="#{touristView.selected.age}" required="true"/>
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="@next">País</p:outputLabel>
+                                <p:selectOneMenu id="country" value="#{touristView.selectedCountry}" required="true">
+                                    <f:selectItems value="#{touristView.countries}" var="country" itemLabel="#{country.name}" itemValue="#{country.id}"/>
+                                </p:selectOneMenu>
+                            </div>
+                        </p:outputPanel>
+                    </p:outputPanel>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Save" icon="pi pi-check" actionListener="#{touristView.save}"
+                                         update="manage-tourist-content" process="manage-tourist-content @this"/>
+                        <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageTouristDialog').hide()"
+                                         class="ui-button-secondary" type="button" />
+                    </f:facet>
+                </p:dialog>
+
+                <p:confirmDialog widgetVar="deleteTouristDialog" showEffect="fade" width="300"
+                                 message="Delete the tourist?" header="Confirm" severity="warn">
+                    <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{touristView.delete}"
+                                     process="@this"
+                                     oncomplete="PF('deleteTouristDialog').hide()" />
+                    <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                                     onclick="PF('deleteTouristDialog').hide()" />
+                </p:confirmDialog>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

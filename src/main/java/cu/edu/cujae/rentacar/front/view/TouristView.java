@@ -1,6 +1,8 @@
 package cu.edu.cujae.rentacar.front.view;
 
+import cu.edu.cujae.rentacar.front.dto.CountryDTO;
 import cu.edu.cujae.rentacar.front.dto.TouristDTO;
+import cu.edu.cujae.rentacar.front.service.CountryService;
 import cu.edu.cujae.rentacar.front.service.TouristService;
 import cu.edu.cujae.rentacar.front.utils.ApiResponse;
 import cu.edu.cujae.rentacar.front.utils.JsfUtils;
@@ -23,8 +25,11 @@ public class TouristView implements Serializable {
     private List<TouristDTO> tourists;
     @Setter
     private TouristDTO selected;
+    private Integer selectedCountry;
     @Inject
     private TouristService touristService;
+    @Inject
+    private CountryService countryService;
 
     @PostConstruct
     public void init() { this.tourists = touristService.getAll(); }
@@ -64,6 +69,9 @@ public class TouristView implements Serializable {
 
     public void add() {
         this.selected = new TouristDTO();
+    }
+    public List<CountryDTO> getCountries(){
+        return countryService.getAll();
     }
 }
 
