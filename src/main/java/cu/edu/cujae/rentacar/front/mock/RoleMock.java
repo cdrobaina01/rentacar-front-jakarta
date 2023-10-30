@@ -18,8 +18,12 @@ public class RoleMock {
 
     private RoleMock() {
         roles = new ArrayList<>();
-        roles.add(new RoleDTO(1, "Administrator", "Administrate"));
-        roles.add(new RoleDTO(2, "User", "Use"));
+        RoleDTO dto = RoleDTO.builder().name("Administrator").description("Administrate").build();
+        dto.setId(1);
+        roles.add(dto);
+        dto = RoleDTO.builder().name("User").description("Use").build();
+        dto.setId(2);
+        roles.add(dto);
     }
 
     public List<RoleDTO> getAll() {

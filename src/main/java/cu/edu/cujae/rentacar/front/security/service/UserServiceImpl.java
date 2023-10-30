@@ -35,4 +35,9 @@ public class UserServiceImpl implements UserService{
     public ApiResponse delete(Integer id) {
         return new ApiResponse(UserMock.getInstance().delete(id), "Delete");
     }
+
+    @Override
+    public ApiResponse delete(List<Integer> id) {
+        return null;
+    }
 }

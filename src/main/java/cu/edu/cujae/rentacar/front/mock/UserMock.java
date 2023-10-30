@@ -1,5 +1,6 @@
 package cu.edu.cujae.rentacar.front.mock;
 
+import com.github.javafaker.Faker;
 import cu.edu.cujae.rentacar.front.security.dto.UserDTO;
 
 import java.util.LinkedList;
@@ -18,9 +19,22 @@ public class UserMock {
 
     private UserMock() {
         users = new LinkedList<>();
-        users.add(new UserDTO(1, "admin", "asd", RoleMock.getInstance().getById(1)));
-        users.add(new UserDTO(2, "user1", "123", RoleMock.getInstance().getById(2)));
-        users.add(new UserDTO(3, "user2", "123", RoleMock.getInstance().getById(2)));
+        UserDTO dto = UserDTO.builder()
+                .username("admin")
+                .password("admin")
+                .role(RoleMock.getInstance().getById(1))
+                .build();
+        dto.setId(1);
+        users.add(dto);
+        for (int i = 2; i < 4; i++) {
+            dto = UserDTO.builder()
+                    .username(Faker.instance().name().username())
+                    .password("rentacar")
+                    .role(RoleMock.getInstance().getById(2))
+                    .build();
+            dto.setId(i);
+            users.add(dto);
+        }
     }
 
     public List<UserDTO> getAll() {
@@ -40,6 +54,7 @@ public class UserMock {
 
     public boolean save(UserDTO dto) {
         boolean result = true;
+        dto.setPassword("rentacar");
         for (UserDTO user : users) {
             if (user.getId().equals(dto.getId())) {
                 result = false;

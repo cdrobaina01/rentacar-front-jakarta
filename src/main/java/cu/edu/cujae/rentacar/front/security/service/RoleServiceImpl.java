@@ -35,4 +35,9 @@ public class RoleServiceImpl implements RoleService {
     public ApiResponse delete(Integer id) {
         return new ApiResponse(RoleMock.getInstance().delete(id), "Delete");
     }
+
+    @Override
+    public ApiResponse delete(List<Integer> id) {
+        return null;
+    }
 }

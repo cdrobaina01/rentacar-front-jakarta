@@ -9,25 +9,8 @@
 
 <ui:composition>
     <div class="layout-sidebar">
-        <div class="layout-menu #{msgs.btn_login}">
-            <div class="menu-category">Administración</div>
-            <div class="menu-items">
-                <p:link outcome="/pages/security/manage-users.faces" value="Gestionar Usuarios"/>
-                <p:link outcome="/pages/security/manage-roles.faces" value="Gestionar Roles"/>
-            </div>
-            <div class="menu-category">Gestionar Entidades</div>
-            <div class="menu-items">
-                <p:link outcome="/pages/tourist/manage-tourists.faces" value="Gestionar Turistas"/>
-                <p:link outcome="/pages/driver/manage-drivers.faces" value="Gestionar Conductores"/>
-                <p:link outcome="/pages/car/manage-cars.faces" value="Gestionar Autos"/>
-            </div>
-            <div class="menu-category">Gestionar Nomencladores</div>
-            <div class="menu-items">
-                <p:link outcome="/pages/driver/manage-categories.faces" value="Gestionar Categorías de Licencia"/>
-                <p:link outcome="/pages/tourist/manage-countries.faces" value="Gestionar Países"/>
-                <p:link outcome="/pages/car/manage-brands.faces" value="Gestionar Marcas de Autos"/>
-                <p:link outcome="/pages/car/manage-models.faces" value="Gestionar Modelos de Autos"/>
-            </div>
+        <div class="layout-menu">
+            <p:menu model="#{navigationView.model}" toggleable="true" statefulGlobal="true" />
         </div>
     </div>
 </ui:composition>

@@ -1,43 +1,19 @@
 package cu.edu.cujae.rentacar.front.security.dto;
 
+import cu.edu.cujae.rentacar.front.dto.EntityDTO;
+import jakarta.validation.constraints.Size;
+import lombok.*;
+
 import java.io.Serializable;
 
-public class RoleDTO implements Serializable {
-    private Integer id;
+@EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Builder
+public class RoleDTO extends EntityDTO {
+    @Size(min = 2, max = 255)
     private String name;
+    @Size(min = 2, max = 255)
     private String description;
-
-    public RoleDTO() {
-
-    }
-
-    public RoleDTO(Integer id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }
