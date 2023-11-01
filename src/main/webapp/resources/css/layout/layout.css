@@ -168,7 +168,7 @@ input[type="number"] {
       font-size: 24px;
       line-height: inherit; }
   .layout-topbar .logo img {
-    width: 180px; }
+    width: 200px; }
   .layout-topbar .logo:focus {
     outline: 0 none;
     transition: box-shadow .2s;
