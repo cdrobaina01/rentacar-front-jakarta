@@ -27,14 +27,15 @@ public class UserView extends CrudView<UserDTO> implements Serializable {
 
     @PostConstruct
     public void init() {
-        entityName = "paymethod";
-        upperEntityName = "PayMethod";
+        entityName = "user";
+        upperEntityName = "User";
         this.crudService = userService;
         this.items = crudService.getAll();
     }
 
     @Override
     public void save() {
+
         UserDTO dto = this.selectedItem;
         dto.setRole(roleService.getById(selectedRole));
         super.save(dto);

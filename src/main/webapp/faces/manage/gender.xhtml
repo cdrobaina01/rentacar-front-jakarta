@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="crud.xhtml">
+    <ui:define name="title">#{msgs.gender_manage}</ui:define>
+
+    <ui:define name="toolbar">
+        <p:commandButton value="#{msgs.add}" icon="pi pi-plus" actionListener="#{genderView.add}"
+                         update=":dialogs:manage-entity-content" oncomplete="PF('manageEntityDialog').show()"
+                         styleClass="ui-button-success" style="margin-right: .5rem">
+            <p:resetInput target=":dialogs:manage-entity-content" />
+        </p:commandButton>
+        <p:commandButton id="delete-entities-button" value="#{genderView.deleteButtonMessage}"
+                         icon="pi pi-trash" actionListener="#{genderView.deleteSelectedProducts}"
+                         styleClass="ui-button-danger" disabled="#{!genderView.hasSelectedProducts()}" update="@this">
+            <p:confirm header="#{msgs.confirm}" message="#{msgs.gender_confirm_delete_p}"
+                       icon="pi pi-exclamation-triangle" />
+        </p:commandButton>
+    </ui:define>
+
+    <ui:define name="datatable">
+        <p:dataTable id="entities" widgetVar="entities" var="entity" value="#{genderView.items}" stripedRows="true"
+                     reflow="true" selection="#{genderView.selectedItems}" editable="true"
+                     rowKey="#{entity.id}" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+
+            <f:facet name="header">
+                <div class="p-d-flex p-jc-between p-ai-center">
+                    <span style="font-weight: bold">#{msgs.genders}</span>
+                    <div>
+                        <span class="ui-picklist-filter-container ui-input-icon-left" style="padding-right: 1rem">
+                            <i class="pi pi-search"/>
+                            <p:inputText id="globalFilter" onkeyup="PF('entities').filter()" placeholder="#{msgs.search}"/>
+                        </span>
+                        <p:commandButton id="toggler" type="button" value="#{msgs.columns}" icon="pi pi-align-justify"/>
+                        <p:columnToggler datasource="entities" trigger="toggler">
+                            <p:ajax />
+                        </p:columnToggler>
+                    </div>
+                </div>
+            </f:facet>
+
+            <p:ajax event="rowSelect" update=":form:delete-entities-button" />
+            <p:ajax event="rowUnselect" update=":form:delete-entities-button" />
+            <p:ajax event="rowSelectCheckbox" update=":form:delete-entities-button" />
+            <p:ajax event="rowUnselectCheckbox" update=":form:delete-entities-button" />
+            <p:ajax event="toggleSelect" update=":form:delete-entities-button" />
+
+            <p:column selectionMode="multiple" exportable="false" toggleable="false"/>
+
+            <p:column headerText="#{msgs.name}" sortBy="#{entity.name}" filterBy="#{entity.name}">
+                <h:outputText value="#{entity.name}"/>
+            </p:column>
+
+            <p:column headerText="#{msgs.options}" exportable="false" toggleable="false">
+                <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-entity-content"
+                                 oncomplete="PF('manageEntityDialog').show()"
+                                 styleClass="edit-button rounded-button ui-button-success" process="@this">
+                    <f:setPropertyActionListener value="#{entity}" target="#{genderView.selectedItem}"/>
+                    <p:resetInput target=":dialogs:manage-entity-content"/>
+                </p:commandButton>
+                <p:commandButton icon="pi pi-trash" styleClass="ui-button-warning rounded-button"
+                                 process="@this" oncomplete="PF('deleteEntityDialog').show()">
+                    <f:setPropertyActionListener value="#{entity}" target="#{genderView.selectedItem}"/>
+                </p:commandButton>
+            </p:column>
+
+        </p:dataTable>
+    </ui:define>
+
+    <ui:define name="dialogs">
+        <p:dialog header="#{msgs.gender}" showEffect="fade" modal="true" widgetVar="manageEntityDialog"
+                  responsive="true">
+            <p:outputPanel id="manage-entity-content" styleClass="ui-fluid">
+                <p:outputPanel rendered="#{not empty genderView.selectedItem}">
+                    <h:panelGrid columns="3">
+                        <p:outputLabel for="name" value="#{msgs.name}" style="padding-right: 0.5rem"/>
+                        <p:inputText id="name" required="true" value="#{genderView.selectedItem.name}"/>
+                        <p:message for="name" display="tooltip"/>
+                    </h:panelGrid>
+                </p:outputPanel>
+            </p:outputPanel>
+
+            <f:facet name="footer">
+                <div style="text-align: center">
+                    <p:commandButton value="#{msgs.save}" icon="pi pi-check" actionListener="#{genderView.save}"
+                                     update="manage-entity-content" process="manage-entity-content @this"/>
+                    <p:commandButton value="#{msgs.cancel}" icon="pi pi-times" onclick="PF('manageEntityDialog').hide()"
+                                     class="ui-button-secondary" type="button" />
+                </div>
+            </f:facet>
+        </p:dialog>
+
+        <p:confirmDialog widgetVar="deleteEntityDialog" showEffect="fade" width="300"
+                         message="#{msgs.gender_confirm_delete}" header="#{msgs.confirm}" severity="warn">
+            <p:commandButton value="#{msgs.yes}" icon="pi pi-check" actionListener="#{genderView.delete}"
+                             process="@this"
+                             oncomplete="PF('deleteEntityDialog').hide()" />
+            <p:commandButton value="#{msgs.no}" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                             onclick="PF('deleteEntityDialog').hide()" />
+        </p:confirmDialog>
+
+        <p:confirmDialog global="true" showEffect="fade" width="300">
+            <p:commandButton value="#{msgs.yes}" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+            <p:commandButton value="#{msgs.no}" type="button" styleClass="ui-confirmdialog-no ui-button-secondary"
+                             icon="pi pi-times" />
+        </p:confirmDialog>
+    </ui:define>
+</ui:composition>
+</html>

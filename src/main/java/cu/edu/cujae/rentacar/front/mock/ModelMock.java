@@ -23,13 +23,12 @@ public class ModelMock {
         models = new ArrayList<>();
         Random rand = new Random();
         for (int i = 1; i < 6; i++) {
-            models.add(
-                    ModelDTO.builder()
-                            .id(i)
-                            .name(Faker.instance().lorem().word())
-                            .brand(BrandMock.getInstance().getById(rand.nextInt(5) + 1))
-                            .build()
-            );
+            ModelDTO dto = ModelDTO.builder()
+                    .name(Faker.instance().lorem().word())
+                    .brand(AuxiliaryMock.getInstance().getById(rand.nextInt(5) + 1))
+                    .build();
+            dto.setId(i);
+            models.add(dto);
         }
     }
     public List<ModelDTO> getAll() {
@@ -46,5 +45,13 @@ public class ModelMock {
             }
         }
         return role;
+    }
+
+    public boolean save(ModelDTO dto) {
+        return false;
+    }
+
+    public boolean update(ModelDTO dto) {
+        return false;
     }
 }

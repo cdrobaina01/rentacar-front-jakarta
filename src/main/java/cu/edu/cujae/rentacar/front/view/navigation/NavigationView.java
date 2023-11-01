@@ -29,6 +29,10 @@ public class NavigationView {
 
         List<MenuItem> entitiesMenuItems = new ArrayList<>();
         entitiesMenuItems.add(new MenuItem("Gestionar Métodos de Pago", "/faces/manage/paymethod.faces"));
+        entitiesMenuItems.add(new MenuItem("Gestionar Países", "/faces/manage/country.faces"));
+        entitiesMenuItems.add(new MenuItem("Gestionar Géneros", "/faces/manage/gender.faces"));
+        entitiesMenuItems.add(new MenuItem("Gestionar Modelos", "/faces/manage/model.faces"));
+        entitiesMenuItems.add(new MenuItem("Gestionar Marcas", "/faces/manage/brand.faces"));
         menuCategories.add(new MenuCategory("Entidades", entitiesMenuItems));
 
         for (MenuCategory category : menuCategories) {
