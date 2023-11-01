@@ -2,7 +2,7 @@ package cu.edu.cujae.rentacar.front.security.view;
 
 import cu.edu.cujae.rentacar.front.security.dto.RoleDTO;
 import cu.edu.cujae.rentacar.front.security.service.RoleService;
-import cu.edu.cujae.rentacar.front.view.CrudView;
+import cu.edu.cujae.rentacar.front.view.crud.CrudView;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;

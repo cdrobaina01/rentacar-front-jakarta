@@ -38,8 +38,8 @@ public class JsfUtils {
 
     public static String getStringValueFromBundleWithParam(String msgKey, String paramValue ) {
         ResourceBundle bundle = ResourceBundle.getBundle("i18n.language", getCurrentLocale());
-        String  msgValue = bundle.getString(msgKey);
-        MessageFormat   messageFormat = new MessageFormat(msgValue);
+        String msgValue = bundle.getString(msgKey);
+        MessageFormat messageFormat = new MessageFormat(msgValue);
         Object[] args = {paramValue};
         return messageFormat.format(args);
     }

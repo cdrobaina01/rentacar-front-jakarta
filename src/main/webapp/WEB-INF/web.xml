@@ -18,7 +18,7 @@
         <url-pattern>*.jsf</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
-        <welcome-file>pages/main/home.faces</welcome-file>
+        <welcome-file>faces/main/home.faces</welcome-file>
     </welcome-file-list>
 
     <context-param>
