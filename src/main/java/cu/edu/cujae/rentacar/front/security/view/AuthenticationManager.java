@@ -15,6 +15,7 @@ import java.io.Serializable;
 @Named
 @SessionScoped
 public class AuthenticationManager implements Serializable {
+    @Getter
     private AuthenticatedUserDTO currentUser;
     @Getter @Setter
     private String actualPage;
