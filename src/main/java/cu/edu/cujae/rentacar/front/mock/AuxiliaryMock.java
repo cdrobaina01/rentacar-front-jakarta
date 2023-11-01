@@ -7,18 +7,18 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class PayMethodMock {
-    private static PayMethodMock instance;
+public class AuxiliaryMock {
+    private static AuxiliaryMock instance;
     private final List<AuxiliaryDTO> items;
 
-    public static PayMethodMock getInstance() {
+    public static AuxiliaryMock getInstance() {
         if (instance == null) {
-            instance = new PayMethodMock();
+            instance = new AuxiliaryMock();
         }
         return instance;
     }
 
-    private PayMethodMock() {
+    private AuxiliaryMock() {
         items = new ArrayList<>();
         for (int i = 1; i < 6; i++) {
             AuxiliaryDTO dto = AuxiliaryDTO.builder().name(Faker.instance().lorem().word()).build();

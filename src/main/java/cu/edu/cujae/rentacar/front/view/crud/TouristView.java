@@ -1,5 +1,6 @@
 package cu.edu.cujae.rentacar.front.view.crud;
 
+import cu.edu.cujae.rentacar.front.dto.AuxiliaryDTO;
 import cu.edu.cujae.rentacar.front.dto.CountryDTO;
 import cu.edu.cujae.rentacar.front.dto.TouristDTO;
 import cu.edu.cujae.rentacar.front.service.CountryService;
@@ -74,7 +75,7 @@ public class TouristView implements Serializable {
     public void add() {
         this.selected = new TouristDTO();
     }
-    public List<CountryDTO> getCountries(){
+    public List<AuxiliaryDTO> getCountries(){
         return countryService.getAll();
     }
 }

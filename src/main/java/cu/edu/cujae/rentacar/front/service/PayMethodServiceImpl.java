@@ -1,7 +1,7 @@
 package cu.edu.cujae.rentacar.front.service;
 
 import cu.edu.cujae.rentacar.front.dto.AuxiliaryDTO;
-import cu.edu.cujae.rentacar.front.mock.PayMethodMock;
+import cu.edu.cujae.rentacar.front.mock.AuxiliaryMock;
 import cu.edu.cujae.rentacar.front.utils.ApiResponse;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
@@ -13,32 +13,32 @@ import java.util.List;
 public class PayMethodServiceImpl implements PayMethodService {
     @Override
     public List<AuxiliaryDTO> getAll() {
-        return PayMethodMock.getInstance().getAll();
+        return AuxiliaryMock.getInstance().getAll();
     }
 
     @Override
     public AuxiliaryDTO getById(Integer id) {
-        return PayMethodMock.getInstance().getById(id);
+        return AuxiliaryMock.getInstance().getById(id);
     }
 
     @Override
     public ApiResponse save(AuxiliaryDTO dto) {
-        return new ApiResponse(PayMethodMock.getInstance().save(dto), "Saved");
+        return new ApiResponse(AuxiliaryMock.getInstance().save(dto), "Saved");
     }
 
     @Override
     public ApiResponse update(AuxiliaryDTO dto) {
-        return new ApiResponse(PayMethodMock.getInstance().update(dto), "Update");
+        return new ApiResponse(AuxiliaryMock.getInstance().update(dto), "Update");
     }
 
     @Override
     public ApiResponse delete(Integer id) {
-        return new ApiResponse(PayMethodMock.getInstance().delete(id), "Delete");
+        return new ApiResponse(AuxiliaryMock.getInstance().delete(id), "Delete");
     }
 
     @Override
     public ApiResponse delete(List<Integer> ids) {
-        PayMethodMock.getInstance().delete(ids);
+        AuxiliaryMock.getInstance().delete(ids);
         return new ApiResponse(true, "Delete");
     }
 }

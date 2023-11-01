@@ -1,18 +1,19 @@
 package cu.edu.cujae.rentacar.front.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import cu.edu.cujae.rentacar.front.security.dto.RoleDTO;
+import lombok.*;
 
 import java.io.Serializable;
 
+@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-public class ModelDTO implements Serializable {
-    private Integer id;
+public class ModelDTO extends EntityDTO {
     private String name;
-    private BrandDTO brand;
+    private AuxiliaryDTO brand;
 }
+
+
+

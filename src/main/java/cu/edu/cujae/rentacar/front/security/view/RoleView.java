@@ -18,8 +18,8 @@ public class RoleView extends CrudView<RoleDTO> implements Serializable {
 
     @PostConstruct
     public void init() {
-        entityName = "paymethod";
-        upperEntityName = "PayMethod";
+        entityName = "role";
+        upperEntityName = "Role";
         this.crudService = roleService;
         this.items = crudService.getAll();
     }
