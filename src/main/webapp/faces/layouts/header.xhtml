@@ -19,11 +19,16 @@
         <h:form styleClass="topbar-form">
             <ul class="topbar-menu">
                 <li class="topbar-submenu">
-                    <a tabindex="0"><i class="pi pi-user"/></a>
+                    <a tabindex="0"><span style="margin-right: 1rem">#{authenticationManager.currentUser.username}</span><i class="pi pi-user"/></a>
                     <ul class="connected-overlay-in">
                         <li>
+                            <h:link outcome="/faces/security/manage/password.faces">
+                                <i class="pi pi-shield" style="margin-right: 5px"/><span>#{msgs.change_password}</span>
+                            </h:link>
+                        </li>
+                        <li>
                             <p:commandLink action="#{authenticationManager.logout()}">
-                                <i class="pi pi-sign-out"/><span>#{msgs.logout}</span>
+                                <i class="pi pi-sign-out" style="margin-right: 5px"/><span>#{msgs.logout}</span>
                             </p:commandLink>
                         </li>
                     </ul>

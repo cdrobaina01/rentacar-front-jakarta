@@ -26,6 +26,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                     .role(roleService.getById(1))
                     .token("token")
                     .build();
+            authenticatedUser.setId(1);
         }
         return authenticatedUser;
     }
