@@ -1,9 +1,7 @@
 package cu.edu.cujae.rentacar.front.mock;
 
 import com.github.javafaker.Faker;
-import cu.edu.cujae.rentacar.front.dto.BrandDTO;
-import cu.edu.cujae.rentacar.front.dto.PayMethodDTO;
-import cu.edu.cujae.rentacar.front.security.dto.UserDTO;
+import cu.edu.cujae.rentacar.front.dto.AuxiliaryDTO;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -11,7 +9,7 @@ import java.util.List;
 
 public class PayMethodMock {
     private static PayMethodMock instance;
-    private final List<PayMethodDTO> items;
+    private final List<AuxiliaryDTO> items;
 
     public static PayMethodMock getInstance() {
         if (instance == null) {
@@ -23,19 +21,19 @@ public class PayMethodMock {
     private PayMethodMock() {
         items = new ArrayList<>();
         for (int i = 1; i < 6; i++) {
-            PayMethodDTO dto = PayMethodDTO.builder().name(Faker.instance().lorem().word()).build();
+            AuxiliaryDTO dto = AuxiliaryDTO.builder().name(Faker.instance().lorem().word()).build();
             dto.setId(i);
             items.add(dto);
         }
     }
 
-    public List<PayMethodDTO> getAll() {
+    public List<AuxiliaryDTO> getAll() {
         return items;
     }
 
-    public PayMethodDTO getById(Integer id) {
-        PayMethodDTO role = null;
-        for(PayMethodDTO dto : items) {
+    public AuxiliaryDTO getById(Integer id) {
+        AuxiliaryDTO role = null;
+        for(AuxiliaryDTO dto : items) {
             if (dto.getId().equals(id)) {
                 role = dto;
                 break;
@@ -44,9 +42,9 @@ public class PayMethodMock {
         return role;
     }
 
-    public boolean save(PayMethodDTO dto) {
+    public boolean save(AuxiliaryDTO dto) {
         boolean result = true;
-        for (PayMethodDTO item : items) {
+        for (AuxiliaryDTO item : items) {
             if (item.getId().equals(dto.getId())) {
                 result = false;
                 break;
@@ -59,9 +57,9 @@ public class PayMethodMock {
         return result;
     }
 
-    public boolean update(PayMethodDTO dto) {
+    public boolean update(AuxiliaryDTO dto) {
         boolean result = false;
-        for (PayMethodDTO item : items) {
+        for (AuxiliaryDTO item : items) {
             if (item.getId().equals(dto.getId())) {
                 result = true;
                 item = dto;
@@ -72,8 +70,8 @@ public class PayMethodMock {
 
     public boolean delete(Integer id) {
         boolean result = false;
-        PayMethodDTO deleted = null;
-        for (PayMethodDTO item : items) {
+        AuxiliaryDTO deleted = null;
+        for (AuxiliaryDTO item : items) {
             if (item.getId().equals(id)) {
                 result = true;
                 deleted = item;
@@ -84,8 +82,8 @@ public class PayMethodMock {
     }
 
     public void delete(List<Integer> ids) {
-        List<PayMethodDTO> list = new LinkedList<>();
-        for (PayMethodDTO dto : items) {
+        List<AuxiliaryDTO> list = new LinkedList<>();
+        for (AuxiliaryDTO dto : items) {
             if (ids.contains(dto.getId())) {
                 list.add(dto);
             }

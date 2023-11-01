@@ -1,6 +1,6 @@
 package cu.edu.cujae.rentacar.front.view.crud;
 
-import cu.edu.cujae.rentacar.front.dto.PayMethodDTO;
+import cu.edu.cujae.rentacar.front.dto.AuxiliaryDTO;
 import cu.edu.cujae.rentacar.front.service.PayMethodService;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 @Named
 @ViewScoped
-public class PayMethodView extends CrudView<PayMethodDTO> implements Serializable {
+public class PayMethodView extends CrudView<AuxiliaryDTO> implements Serializable {
     @Inject
     private PayMethodService payMethodService;
 
@@ -25,6 +25,6 @@ public class PayMethodView extends CrudView<PayMethodDTO> implements Serializabl
 
     @Override
     public void add() {
-        this.selectedItem = PayMethodDTO.builder().build();
+        this.selectedItem = AuxiliaryDTO.builder().build();
     }
 }
