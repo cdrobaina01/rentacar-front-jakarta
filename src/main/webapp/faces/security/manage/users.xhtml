@@ -93,7 +93,9 @@
                      <f:selectItems value="#{userView.roles}" var="role" itemLabel="#{role.name}" itemValue="#{role.id}"/>
                   </p:selectOneMenu>
                </h:panelGrid>
-               <p:message for="role" styleClass="p-col-align-center"/>
+               <p:message for="role" styleClass="p-col-align-center">
+                  <p:autoUpdate/>
+               </p:message>
             </p:outputPanel>
          </p:outputPanel>
 

@@ -40,4 +40,9 @@ public class UserServiceImpl implements UserService{
     public ApiResponse delete(List<Integer> id) {
         return null;
     }
+
+    @Override
+    public ApiResponse changePassword(Integer id, String password) {
+        return new ApiResponse(true, "Changed");
+    }
 }

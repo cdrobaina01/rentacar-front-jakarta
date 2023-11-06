@@ -1,19 +1,14 @@
 package cu.edu.cujae.rentacar.front.security.view;
 
 import cu.edu.cujae.rentacar.front.security.dto.AuthenticatedUserDTO;
-import cu.edu.cujae.rentacar.front.security.dto.UserDTO;
-import cu.edu.cujae.rentacar.front.security.service.AuthenticationService;
 import cu.edu.cujae.rentacar.front.security.service.UserService;
 import cu.edu.cujae.rentacar.front.utils.ApiResponse;
 import cu.edu.cujae.rentacar.front.utils.JsfUtils;
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.validation.constraints.AssertTrue;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.primefaces.PrimeFaces;
@@ -21,9 +16,9 @@ import org.primefaces.PrimeFaces;
 import java.io.Serializable;
 
 @Named
-@RequestScoped
+@ViewScoped
 @Data
-public class PasswordChangeView {
+public class PersonalConfigView implements Serializable {
     private AuthenticatedUserDTO user;
     @Size(min = 4, max = 255)
     private String changedPassword;
