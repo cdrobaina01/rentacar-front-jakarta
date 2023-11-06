@@ -81,7 +81,7 @@ public abstract class CrudView<DTO extends EntityDTO> {
     public String getDeleteButtonMessage() {
         if (hasSelectedProducts()) {
             int size = this.selectedItems.size();
-            return size > 1 ? size + " " + JsfUtils.getStringValueFromBundle("paymethod_selected_p") : "1 " + JsfUtils.getStringValueFromBundle("paymethod_selected");
+            return size > 1 ? size + " " + JsfUtils.getStringValueFromBundle(entityName + "_selected_p") : "1 " + JsfUtils.getStringValueFromBundle(entityName + "_selected");
         }
         return JsfUtils.getStringValueFromBundle("delete");
     }

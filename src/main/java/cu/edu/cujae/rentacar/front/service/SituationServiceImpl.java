@@ -7,10 +7,9 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 
 import java.util.List;
-
 @Named
 @RequestScoped
-public class CategoryServiceImpl implements CategoryService {
+public class SituationServiceImpl implements SituationService {
     @Override
     public List<AuxiliaryDTO> getAll() {
         return AuxiliaryMock.getInstance().getAll();

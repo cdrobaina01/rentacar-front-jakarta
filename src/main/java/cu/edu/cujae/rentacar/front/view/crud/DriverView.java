@@ -1,5 +1,6 @@
 package cu.edu.cujae.rentacar.front.view.crud;
 
+import cu.edu.cujae.rentacar.front.dto.AuxiliaryDTO;
 import cu.edu.cujae.rentacar.front.dto.CategoryDTO;
 import cu.edu.cujae.rentacar.front.dto.DriverDTO;
 import cu.edu.cujae.rentacar.front.service.CategoryService;
@@ -71,7 +72,7 @@ public class DriverView implements Serializable {
         this.selected = new DriverDTO();
     }
 
-    public List<CategoryDTO> getCategories() {
+    public List<AuxiliaryDTO> getCategories() {
         return categoryService.getAll();
     }
 }

@@ -33,6 +33,8 @@ public class NavigationView {
         entitiesMenuItems.add(new MenuItem("Gestionar Géneros", "/faces/manage/gender.faces"));
         entitiesMenuItems.add(new MenuItem("Gestionar Modelos", "/faces/manage/model.faces"));
         entitiesMenuItems.add(new MenuItem("Gestionar Marcas", "/faces/manage/brand.faces"));
+        entitiesMenuItems.add(new MenuItem("Gestionar Situaciones", "/faces/manage/situation.faces"));
+        entitiesMenuItems.add(new MenuItem("Gestionar Categorías", "/faces/manage/category.faces"));
         menuCategories.add(new MenuCategory("Entidades", entitiesMenuItems));
 
         for (MenuCategory category : menuCategories) {

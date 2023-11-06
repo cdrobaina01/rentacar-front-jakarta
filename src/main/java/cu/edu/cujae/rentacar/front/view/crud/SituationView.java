@@ -1,26 +1,25 @@
 package cu.edu.cujae.rentacar.front.view.crud;
 
 import cu.edu.cujae.rentacar.front.dto.AuxiliaryDTO;
-import cu.edu.cujae.rentacar.front.service.CategoryService;
 import cu.edu.cujae.rentacar.front.service.PayMethodService;
+import cu.edu.cujae.rentacar.front.service.SituationService;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 import java.io.Serializable;
-
 @Named
 @ViewScoped
-public class CategoryView extends CrudView<AuxiliaryDTO> implements Serializable {
+public class SituationView extends CrudView<AuxiliaryDTO> implements Serializable {
     @Inject
-    private CategoryService categoryService;
+    private SituationService situationService;
 
     @PostConstruct
     public void init() {
-        entityName = "category";
-        upperEntityName = "Category";
-        this.crudService = categoryService;
+        entityName = "situation";
+        upperEntityName = "Situation";
+        this.crudService = situationService;
         this.items = crudService.getAll();
     }
 
