@@ -16,6 +16,6 @@ public class DriverDTO implements Serializable {
     private Integer id;
     private String dni;
     private String name;
-    private CategoryDTO category;
+    private AuxiliaryDTO category;
     private String address;
 }

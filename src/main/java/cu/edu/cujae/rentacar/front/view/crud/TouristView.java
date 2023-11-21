@@ -1,9 +1,10 @@
 package cu.edu.cujae.rentacar.front.view.crud;
 
 import cu.edu.cujae.rentacar.front.dto.AuxiliaryDTO;
-import cu.edu.cujae.rentacar.front.dto.CountryDTO;
+import cu.edu.cujae.rentacar.front.dto.ModelDTO;
 import cu.edu.cujae.rentacar.front.dto.TouristDTO;
 import cu.edu.cujae.rentacar.front.service.CountryService;
+import cu.edu.cujae.rentacar.front.service.GenderService;
 import cu.edu.cujae.rentacar.front.service.TouristService;
 import cu.edu.cujae.rentacar.front.utils.ApiResponse;
 import cu.edu.cujae.rentacar.front.utils.JsfUtils;
@@ -13,6 +14,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Data;
+import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.PrimeFaces;
 
@@ -21,62 +23,51 @@ import java.util.List;
 
 @Named
 @ViewScoped
-@Data
-public class TouristView implements Serializable {
-    private List<TouristDTO> tourists;
+public class TouristView extends CrudView<TouristDTO> implements Serializable {
+    @Getter
     @Setter
-    private TouristDTO selected;
     private Integer selectedCountry;
+    @Getter
+    @Setter
+    private Integer selectedGender;
     @Inject
     private TouristService touristService;
     @Inject
     private CountryService countryService;
+    @Inject
+    private GenderService genderService;
 
     @PostConstruct
-    public void init() { this.tourists = touristService.getAll(); }
-    public void setSelectedRole(Integer selectedCountry) {
-        this.selectedCountry = selectedCountry;
+    public void init() {
+        entityName = "tourist";
+        upperEntityName = "Tourist";
+        this.crudService = touristService;
+        this.items = crudService.getAll();
     }
-    public List<TouristDTO> getTourist(){return tourists;}
 
+    @Override
     public void save() {
-        TouristDTO dto = this.selected;
-        if (dto.getId() == null) {
-            ApiResponse response = touristService.save(dto);
-            if (response.isSuccess()) {
-                JsfUtils.addMessageFromBundle(null, FacesMessage.SEVERITY_INFO, "tourist_added");
-            } else {
-                JsfUtils.addMessageFromBundle(null, FacesMessage.SEVERITY_INFO, "tourist_not_added");
-            }
-        } else {
-            ApiResponse response = touristService.update(dto);
-            if (response.isSuccess()) {
-                JsfUtils.addMessageFromBundle(null, FacesMessage.SEVERITY_INFO, "tourist_edited");
-            } else {
-                JsfUtils.addMessageFromBundle(null, FacesMessage.SEVERITY_INFO, "tourist_not_edited");
-            }
-        }
-        PrimeFaces.current().executeScript("PF('manageTouristDialog').hide()");
-        PrimeFaces.current().ajax().update("form:messages", "form:tourists");
+        TouristDTO dto = this.selectedItem;
+        dto.setGender(genderService.getById(selectedGender));
+        dto.setCountry(countryService.getById(selectedCountry));
+        super.save(dto);
     }
 
-    public void delete() {
-        ApiResponse response = touristService.delete(this.selected.getId());
-
-        if (response.isSuccess()) {
-            JsfUtils.addMessageFromBundle(null, FacesMessage.SEVERITY_INFO, "tourist_deleted");
-            PrimeFaces.current().ajax().update("form:messages", "form:tourists");
-        } else {
-            JsfUtils.addMessageFromBundle(null, FacesMessage.SEVERITY_WARN, "tourist_not_deleted");
-        }
-        PrimeFaces.current().ajax().update("form:messages", "form:tourists");
-    }
-
+    @Override
     public void add() {
-        this.selected = new TouristDTO();
+        this.selectedItem = TouristDTO.builder().build();
+        this.selectedCountry = null;
+        this.selectedGender = null;
     }
-    public List<AuxiliaryDTO> getCountries(){
+    public void edit(){
+        this.selectedGender = this.selectedItem.getGender().getId();
+        this.selectedCountry = this.selectedItem.getCountry().getId();
+    }
+    public List<AuxiliaryDTO> getCountries() {
         return countryService.getAll();
+    }
+    public List<AuxiliaryDTO> getGenders() {
+        return genderService.getAll();
     }
 }
 

@@ -44,6 +44,11 @@ public class UserView extends CrudView<UserDTO> implements Serializable {
     @Override
     public void add() {
         this.selectedItem = UserDTO.builder().build();
+        this.selectedRole = null;
+    }
+
+    public void edit() {
+        this.selectedRole = this.selectedItem.getRole().getId();
     }
 
     public List<RoleDTO> getRoles() {

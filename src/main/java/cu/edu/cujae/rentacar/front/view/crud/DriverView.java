@@ -1,7 +1,6 @@
 package cu.edu.cujae.rentacar.front.view.crud;
 
 import cu.edu.cujae.rentacar.front.dto.AuxiliaryDTO;
-import cu.edu.cujae.rentacar.front.dto.CategoryDTO;
 import cu.edu.cujae.rentacar.front.dto.DriverDTO;
 import cu.edu.cujae.rentacar.front.service.CategoryService;
 import cu.edu.cujae.rentacar.front.service.DriverService;

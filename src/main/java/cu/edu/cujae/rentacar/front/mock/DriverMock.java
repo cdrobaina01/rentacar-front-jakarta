@@ -1,7 +1,6 @@
 package cu.edu.cujae.rentacar.front.mock;
 
 import com.github.javafaker.Faker;
-import cu.edu.cujae.rentacar.front.dto.CategoryDTO;
 import cu.edu.cujae.rentacar.front.dto.DriverDTO;
 
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ public class DriverMock {
                     .name(Faker.instance().name().fullName())
                     .dni(Faker.instance().idNumber().ssnValid())
                     .address(Faker.instance().address().fullAddress())
-                    .category(CategoryMock.getInstance().getById(rand.nextInt(5) + 1))
+                    .category(AuxiliaryMock.getInstance().getById(rand.nextInt(5) + 1))
                     .build();
             drivers.add(dto);
         }

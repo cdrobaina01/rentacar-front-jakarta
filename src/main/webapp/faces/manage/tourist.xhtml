@@ -8,30 +8,30 @@
       xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="crud.xhtml">
-    <ui:define name="title">#{msgs.model_manage}</ui:define>
+    <ui:define name="title">#{msgs.tourist_manage}</ui:define>
 
     <ui:define name="toolbar">
-        <p:commandButton value="#{msgs.add}" icon="pi pi-plus" actionListener="#{modelView.add}"
+        <p:commandButton value="#{msgs.add}" icon="pi pi-plus" actionListener="#{touristView.add}"
                          update=":dialogs:manage-entity-content" oncomplete="PF('manageEntityDialog').show()"
                          styleClass="ui-button-success" style="margin-right: .5rem">
             <p:resetInput target=":dialogs:manage-entity-content" />
         </p:commandButton>
-        <p:commandButton id="delete-entities-button" value="#{modelView.deleteButtonMessage}"
-                         icon="pi pi-trash" actionListener="#{modelView.deleteSelectedProducts}"
-                         styleClass="ui-button-danger" disabled="#{!modelView.hasSelectedProducts()}" update="@this">
-            <p:confirm header="#{msgs.confirm}" message="#{msgs.model_confirm_delete_p}"
+        <p:commandButton id="delete-entities-button" value="#{touristView.deleteButtonMessage}"
+                         icon="pi pi-trash" actionListener="#{touristView.deleteSelectedProducts}"
+                         styleClass="ui-button-danger" disabled="#{!touristView.hasSelectedProducts()}" update="@this">
+            <p:confirm header="#{msgs.confirm}" message="#{msgs.tourist_confirm_delete_p}"
                        icon="pi pi-exclamation-triangle" />
         </p:commandButton>
     </ui:define>
 
     <ui:define name="datatable">
-        <p:dataTable id="entities" widgetVar="entities" var="entity" value="#{modelView.items}" stripedRows="true"
-                     reflow="true" selection="#{modelView.selectedItems}" editable="true"
+        <p:dataTable id="entities" widgetVar="entities" var="entity" value="#{touristView.items}" stripedRows="true"
+                     reflow="true" selection="#{touristView.selectedItems}" editable="true"
                      rowKey="#{entity.id}" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
 
             <f:facet name="header">
                 <div class="p-d-flex p-jc-between p-ai-center">
-                    <span style="font-weight: bold">#{msgs.models}</span>
+                    <span style="font-weight: bold">#{msgs.tourists}</span>
                     <div>
                         <span class="ui-picklist-filter-container ui-input-icon-left" style="padding-right: 1rem">
                             <i class="pi pi-search"/>
@@ -56,21 +56,32 @@
             <p:column headerText="#{msgs.name}" sortBy="#{entity.name}" filterBy="#{entity.name}">
                 <h:outputText value="#{entity.name}"/>
             </p:column>
-
-            <p:column headerText="#{msgs.brand}" sortBy="#{entity.brand.name}" filterBy="#{entity.brand.name}">
-                <h:outputText value="#{entity.brand.name}"/>
+            <p:column headerText="#{msgs.passport}" sortBy="#{entity.passport}" filterBy="#{entity.passport}">
+                <h:outputText value="#{entity.passport}"/>
+            </p:column>
+            <p:column headerText="#{msgs.age}" sortBy="#{entity.age}" filterBy="#{entity.age}">
+                <h:outputText value="#{entity.age}"/>
+            </p:column>
+            <p:column headerText="#{msgs.gender}" sortBy="#{entity.gender.name}" filterBy="#{entity.gender.name}">
+                <h:outputText value="#{entity.gender.name}"/>
+            </p:column>
+            <p:column headerText="#{msgs.contact}" sortBy="#{entity.contact}" filterBy="#{entity.contact}">
+                <h:outputText value="#{entity.contact}"/>
+            </p:column>
+            <p:column headerText="#{msgs.country}" sortBy="#{entity.country.name}" filterBy="#{entity.country.name}">
+                <h:outputText value="#{entity.country.name}"/>
             </p:column>
 
             <p:column headerText="#{msgs.options}" exportable="false" toggleable="false">
-                <p:commandButton icon="pi pi-pencil" action="#{modelView.edit}" update=":dialogs:manage-entity-content"
+                <p:commandButton icon="pi pi-pencil" action="#{touristView.edit}" update=":dialogs:manage-entity-content"
                                  oncomplete="PF('manageEntityDialog').show()"
                                  styleClass="edit-button rounded-button ui-button-success" process="@this">
-                    <f:setPropertyActionListener value="#{entity}" target="#{modelView.selectedItem}"/>
+                    <f:setPropertyActionListener value="#{entity}" target="#{touristView.selectedItem}"/>
                     <p:resetInput target=":dialogs:manage-entity-content"/>
                 </p:commandButton>
                 <p:commandButton icon="pi pi-trash" styleClass="ui-button-warning rounded-button"
                                  process="@this" oncomplete="PF('deleteEntityDialog').show()">
-                    <f:setPropertyActionListener value="#{entity}" target="#{modelView.selectedItem}"/>
+                    <f:setPropertyActionListener value="#{entity}" target="#{touristView.selectedItem}"/>
                 </p:commandButton>
             </p:column>
 
@@ -78,29 +89,52 @@
     </ui:define>
 
     <ui:define name="dialogs">
-        <p:dialog header="#{msgs.model}" showEffect="fade" modal="true" widgetVar="manageEntityDialog"
+        <p:dialog header="#{msgs.tourist}" showEffect="fade" modal="true" widgetVar="manageEntityDialog"
                   responsive="true">
             <p:outputPanel id="manage-entity-content" styleClass="ui-fluid">
-                <p:outputPanel rendered="#{not empty modelView.selectedItem}">
+                <p:outputPanel rendered="#{not empty touristView.selectedItem}">
                     <h:panelGrid columns="3">
                         <p:outputLabel for="name" value="#{msgs.name}" style="padding-right: 0.5rem"/>
-                        <p:inputText id="name" required="true" value="#{modelView.selectedItem.name}"/>
+                        <p:inputText id="name" required="true" value="#{touristView.selectedItem.name}"/>
                         <p:message for="name" display="tooltip"/>
 
-                        <p:outputLabel for="brand" value="#{msgs.role}" style="padding-right: 0.5rem"/>
-                        <p:selectOneMenu id="brand" required="true" value="#{modelView.selectedBrand}"
-                                         hideNoSelectionOption="#{not empty modelView.selectedItem.brand.id}">
+                        <p:outputLabel for="passport" value="#{msgs.passport}" style="padding-right: 0.5rem"/>
+                        <p:inputText id="passport" required="true" value="#{touristView.selectedItem.passport}"/>
+                        <p:message for="passport" display="tooltip"/>
+
+                        <p:outputLabel for="age" value="#{msgs.age}" style="padding-right: 0.5rem"/>
+                        <p:inputText id="age" required="true" value="#{touristView.selectedItem.age}"/>
+                        <p:message for="age" display="tooltip"/>
+
+                        <p:outputLabel for="gender" value="#{msgs.gender}" style="padding-right: 0.5rem"/>
+                        <p:selectOneMenu id="gender" required="true" value="#{touristView.selectedGender}"
+                                         hideNoSelectionOption="#{not empty touristView.selectedItem.gender.id}">
                             <p:ajax update="@this" process="@this"/>
-                            <f:selectItem id="no_selection" noSelectionOption="true" itemLabel="#{msgs.brand}" value="#{null}"/>
-                            <f:selectItems value="#{modelView.brands}" var="brand" itemLabel="#{brand.name}" itemValue="#{brand.id}"/>
+                            <f:selectItem id="no_selection" noSelectionOption="true" itemLabel="#{msgs.gender}" value="#{null}"/>
+                            <f:selectItems value="#{touristView.genders}" var="gender" itemLabel="#{gender.name}" itemValue="#{gender.id}"/>
                         </p:selectOneMenu>
+                        <p:message for="gender" display="tooltip"/>
+
+                        <p:outputLabel for="contact" value="#{msgs.contact}" style="padding-right: 0.5rem"/>
+                        <p:inputText id="contact" required="true" value="#{touristView.selectedItem.contact}"/>
+                        <p:message for="contact" display="tooltip"/>
+
+                        <p:outputLabel for="country" value="#{msgs.country}" style="padding-right: 0.5rem"/>
+                        <p:selectOneMenu id="country" required="true" value="#{touristView.selectedCountry}"
+                                         hideNoSelectionOption="#{not empty touristView.selectedItem.country.id}">
+                            <p:ajax update="@this" process="@this"/>
+                            <f:selectItem id="no_selection1" noSelectionOption="true" itemLabel="#{msgs.country}" value="#{null}"/>
+                            <f:selectItems value="#{touristView.countries}" var="country" itemLabel="#{country.name}" itemValue="#{country.id}"/>
+                        </p:selectOneMenu>
+                        <p:message for="country" display="tooltip"/>
+
                     </h:panelGrid>
                 </p:outputPanel>
             </p:outputPanel>
 
             <f:facet name="footer">
                 <div style="text-align: center">
-                    <p:commandButton value="#{msgs.save}" icon="pi pi-check" actionListener="#{modelView.save}"
+                    <p:commandButton value="#{msgs.save}" icon="pi pi-check" actionListener="#{touristView.save}"
                                      update="manage-entity-content" process="manage-entity-content @this"/>
                     <p:commandButton value="#{msgs.cancel}" icon="pi pi-times" onclick="PF('manageEntityDialog').hide()"
                                      class="ui-button-secondary" type="button" />
@@ -109,8 +143,8 @@
         </p:dialog>
 
         <p:confirmDialog widgetVar="deleteEntityDialog" showEffect="fade" width="300"
-                         message="#{msgs.model_confirm_delete}" header="#{msgs.confirm}" severity="warn">
-            <p:commandButton value="#{msgs.yes}" icon="pi pi-check" actionListener="#{modelView.delete}"
+                         message="#{msgs.tourist_confirm_delete}" header="#{msgs.confirm}" severity="warn">
+            <p:commandButton value="#{msgs.yes}" icon="pi pi-check" actionListener="#{touristView.delete}"
                              process="@this"
                              oncomplete="PF('deleteEntityDialog').hide()" />
             <p:commandButton value="#{msgs.no}" type="button" styleClass="ui-button-secondary" icon="pi pi-times"

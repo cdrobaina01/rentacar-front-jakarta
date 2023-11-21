@@ -1,7 +1,6 @@
 package cu.edu.cujae.rentacar.front.service;
 
 import cu.edu.cujae.rentacar.front.dto.TouristDTO;
-import cu.edu.cujae.rentacar.front.mock.RoleMock;
 import cu.edu.cujae.rentacar.front.mock.TouristMock;
 import cu.edu.cujae.rentacar.front.utils.ApiResponse;
 import jakarta.enterprise.context.RequestScoped;
@@ -12,8 +11,6 @@ import java.util.List;
 @Named
 @RequestScoped
 public class TouristServiceImpl implements TouristService {
-
-    private RoleMock mocker;
     @Override
     public List<TouristDTO> getAll() {
         return TouristMock.getInstance().getAll();
@@ -40,8 +37,7 @@ public class TouristServiceImpl implements TouristService {
     }
 
     @Override
-    public ApiResponse delete(List<Integer> ids) {
+    public ApiResponse delete(List<Integer> id) {
         return null;
     }
-
 }

@@ -1,7 +1,6 @@
 package cu.edu.cujae.rentacar.front.mock;
 
 import com.github.javafaker.Faker;
-import cu.edu.cujae.rentacar.front.dto.CategoryDTO;
 import cu.edu.cujae.rentacar.front.dto.ModelDTO;
 
 import java.util.ArrayList;

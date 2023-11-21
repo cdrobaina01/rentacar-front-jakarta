@@ -1,6 +1,5 @@
 package cu.edu.cujae.rentacar.front.service;
 
-import cu.edu.cujae.rentacar.front.dto.CategoryDTO;
 import cu.edu.cujae.rentacar.front.dto.DriverDTO;
 import cu.edu.cujae.rentacar.front.utils.ApiResponse;
 

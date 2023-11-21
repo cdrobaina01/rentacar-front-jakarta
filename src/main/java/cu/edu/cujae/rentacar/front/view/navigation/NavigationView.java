@@ -27,14 +27,22 @@ public class NavigationView {
         administrationMenuItems.add(new MenuItem("Gestionar Roles", "/faces/security/manage/roles.faces"));
         menuCategories.add(new MenuCategory("Administración", administrationMenuItems));
 
+        List<MenuItem> nomenclaturesMenuItems = new ArrayList<>();
+        nomenclaturesMenuItems.add(new MenuItem("Gestionar Métodos de Pago", "/faces/manage/paymethod.faces"));
+        nomenclaturesMenuItems.add(new MenuItem("Gestionar Países", "/faces/manage/country.faces"));
+        nomenclaturesMenuItems.add(new MenuItem("Gestionar Géneros", "/faces/manage/gender.faces"));
+        nomenclaturesMenuItems.add(new MenuItem("Gestionar Modelos", "/faces/manage/model.faces"));
+        nomenclaturesMenuItems.add(new MenuItem("Gestionar Marcas", "/faces/manage/brand.faces"));
+        nomenclaturesMenuItems.add(new MenuItem("Gestionar Situaciones", "/faces/manage/situation.faces"));
+        nomenclaturesMenuItems.add(new MenuItem("Gestionar Categorías", "/faces/manage/category.faces"));
+        nomenclaturesMenuItems.add(new MenuItem("Gestionar Tarífas", "/faces/manage/fee.faces"));
+        menuCategories.add(new MenuCategory("Nomencladores", nomenclaturesMenuItems));
+
         List<MenuItem> entitiesMenuItems = new ArrayList<>();
-        entitiesMenuItems.add(new MenuItem("Gestionar Métodos de Pago", "/faces/manage/paymethod.faces"));
-        entitiesMenuItems.add(new MenuItem("Gestionar Países", "/faces/manage/country.faces"));
-        entitiesMenuItems.add(new MenuItem("Gestionar Géneros", "/faces/manage/gender.faces"));
-        entitiesMenuItems.add(new MenuItem("Gestionar Modelos", "/faces/manage/model.faces"));
-        entitiesMenuItems.add(new MenuItem("Gestionar Marcas", "/faces/manage/brand.faces"));
-        entitiesMenuItems.add(new MenuItem("Gestionar Situaciones", "/faces/manage/situation.faces"));
-        entitiesMenuItems.add(new MenuItem("Gestionar Categorías", "/faces/manage/category.faces"));
+        entitiesMenuItems.add(new MenuItem("Gestionar Turistas","/faces/manage/tourist.faces"));
+        entitiesMenuItems.add(new MenuItem("Gestionar Conductores","/faces/manage/driver.faces"));
+        entitiesMenuItems.add(new MenuItem("Gestionar Vehículos","/faces/manage/car.faces"));
+        entitiesMenuItems.add(new MenuItem("Gestionar Contratos","/faces/manage/contract.faces"));
         menuCategories.add(new MenuCategory("Entidades", entitiesMenuItems));
 
         for (MenuCategory category : menuCategories) {

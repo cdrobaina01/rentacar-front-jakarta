@@ -1,8 +1,12 @@
 package cu.edu.cujae.rentacar.front.mock;
 
-import cu.edu.cujae.rentacar.front.dto.CountryDTO;
+import com.github.javafaker.Faker;
 import cu.edu.cujae.rentacar.front.dto.TouristDTO;
+import cu.edu.cujae.rentacar.front.security.dto.UserDTO;
+import cu.edu.cujae.rentacar.front.service.CountryService;
+import cu.edu.cujae.rentacar.front.service.GenderService;
 import cu.edu.cujae.rentacar.front.utils.ApiResponse;
+import jakarta.inject.Inject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +14,11 @@ import java.util.List;
 public class TouristMock {
     private static TouristMock instance;
     private final List<TouristDTO> tourists;
+
+    @Inject
+    private CountryService countryService;
+    @Inject
+    private GenderService genderService;
 
     public static TouristMock getInstance() {
         if (instance == null) {
@@ -20,9 +29,16 @@ public class TouristMock {
 
     private TouristMock() {
         tourists = new ArrayList<>();
-        tourists.add(new TouristDTO(1, "T123", "juan", 4, "masculo", "asdasd", CountryMock.getInstance().getById(1)));
-        tourists.add(new TouristDTO(2, "T234", "juana", 5, "mascula", "dsadsa", CountryMock.getInstance().getById(2)));
-
+        TouristDTO dto = TouristDTO.builder()
+                .name(Faker.instance().name().firstName())
+                .age(Faker.instance().number().numberBetween(18, 99))
+                .country(AuxiliaryMock.getInstance().getById(1))
+                .gender(AuxiliaryMock.getInstance().getById(1))
+                .contact(Faker.instance().phoneNumber().cellPhone())
+                .passport(Faker.instance().idNumber().ssnValid())
+                .build();
+        dto.setId(1);
+        tourists.add(dto);
     }
 
     public List<TouristDTO> getAll() {
